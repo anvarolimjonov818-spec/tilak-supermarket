@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="theme-color" content="#071A78">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    
+    <!-- SEO Meta Tags -->
+    <title>Tilak Super Market — Marg‘ilon krugi | Onlayn Do‘kon va Telegram Bot</title>
+    <meta name="description" content="Tilak Super Market — Marg‘ilon krugi yonidagi zamonaviy supermarket. 162 dan ortiq mahsulotlar, onlayn buyurtma va yetkazib berish xizmati. @Tilaksupermarket_bot bilan to'liq integratsiya.">
+    <meta name="keywords" content="Tilak Super Market, Tilak supermarket, Marg'ilon supermarket, Marg'ilon krugi, supermarket Marg'ilon, oziq-ovqat yetkazib berish, Tilaksupermarket_bot">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Tilak Super Market — Marg‘ilon krugi yonida">
+    <meta property="og:description" content="Barcha mahsulotlar bir joyda. Ish vaqti: 09:00 dan 03:00 gacha. Onlayn buyurtma berish va yetkazib berish.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="./logo.png">
+
+    <!-- Google Fonts: Plus Jakarta Sans & Manrope -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tilak: {
+                            primary: '#071A78',
+                            dark: '#04104A',
+                            secondary: '#18B9DC',
+                            light: '#EBF8FC',
+                            surface: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Manrope', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 8px 24px -4px rgba(7, 26, 120, 0.06)',
+                        'card-hover': '0 16px 36px -8px rgba(24, 185, 220, 0.18), 0 6px 14px -4px rgba(7, 26, 120, 0.08)',
+                        'cyan-glow': '0 8px 20px -3px rgba(24, 185, 220, 0.45)',
+                        'blue-glow': '0 10px 24px -3px rgba(7, 26, 120, 0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Prevent iOS automatic zoom on text inputs */
+        @media screen and (max-width: 640px) {
+            input, select, textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(0.8deg); }
+        }
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(6px) rotate(-0.8deg); }
+        }
+        .float-card-1 { animation: float-slow 5s ease-in-out infinite; }
+        .float-card-2 { animation: float-reverse 6s ease-in-out infinite; }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .smooth-scroll { -webkit-overflow-scrolling: touch; }
+
+        .category-card {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .category-card:active {
+            transform: scale(0.97);
+        }
+        @media (hover: hover) {
+            .category-card:hover {
+                transform: translateY(-4px);
+                border-color: #18B9DC;
+                box-shadow: 0 14px 28px -6px rgba(7, 26, 120, 0.12);
+            }
+        }
+
+        .product-card {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @media (hover: hover) {
+            .product-card:hover {
+                transform: translateY(-3px);
+                border-color: #18B9DC;
+                box-shadow: 0 14px 30px -6px rgba(7, 26, 120, 0.12);
+            }
+            .product-card:hover .prod-img {
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-interactive {
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+        .btn-interactive:active {
+            transform: scale(0.96);
+        }
+        @media (hover: hover) {
+            .btn-interactive:hover {
+                transform: scale(1.02);
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-tilak-secondary selection:text-white bg-slate-50 text-slate-800 pb-16 sm:pb-0">
+
+    <!-- ==================================================
+         NAVBAR (Mobile Optimized & Sticky)
+         ================================================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-100 py-2.5 sm:py-3.5">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 flex items-center justify-between">
+            
+            <!-- Left: Logo & Brand Name -->
+            <a href="#home" class="flex items-center gap-2 sm:gap-3 group focus:outline-none" aria-label="Tilak Super Market Bosh sahifa">
+                <img id="nav-logo" src="./logo.png" alt="Tilak" class="w-9 h-9 sm:w-11 sm:h-11 rounded-full object-cover shadow-sm border border-tilak-secondary/40 transition-all duration-300">
+                <div class="flex flex-col">
+                    <span class="text-base sm:text-xl font-extrabold tracking-tight text-tilak-primary leading-none">
+                        TILAK
+                    </span>
+                    <span class="text-[9px] sm:text-xs font-bold tracking-widest uppercase text-tilak-secondary mt-0.5">
+                        Super Market
+                    </span>
+                </div>
+            </a>
+
+            <!-- Center: Desktop Links -->
+            <nav class="hidden lg:flex items-center gap-7" aria-label="Asosiy menyu">
+                <a href="#home" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Bosh sahifa</a>
+                <a href="#categories" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Kategoriyalar</a>
+                <a href="#products" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Mahsulotlar</a>
+                <a href="#about" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Biz haqimizda</a>
+                <a href="#location" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Manzil</a>
+                <a href="#contact" class="text-sm font-bold text-slate-700 hover:text-tilak-primary transition-colors py-1">Aloqa</a>
+            </nav>
+
+            <!-- Right: Action Buttons (Cart, Bot, Phone, Menu) -->
+            <div class="flex items-center gap-1.5 sm:gap-2.5">
+                
+                <!-- Telegram Bot Button -->
+                <a href="https://t.me/Tilaksupermarket_bot" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1.5 bg-[#229ED9]/10 hover:bg-[#229ED9]/20 text-[#0088cc] font-extrabold text-xs px-3 py-2 rounded-xl border border-[#229ED9]/30 transition-all" title="Telegram botda buyurtma berish">
+                    <i class="fa-brands fa-telegram text-base"></i>
+                    <span class="hidden xl:inline">@Tilaksupermarket_bot</span>
+                    <span class="xl:hidden">Bot</span>
+                </a>
+
+                <!-- Shopping Cart Button (Header) -->
+                <button id="nav-cart-btn" onclick="openCartDrawer()" type="button" class="btn-interactive relative inline-flex items-center gap-1.5 sm:gap-2 bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-xs sm:text-sm px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-xl shadow-sm" aria-label="Savatchani ochish">
+                    <i class="fa-solid fa-basket-shopping text-tilak-secondary text-xs sm:text-sm"></i>
+                    <span class="hidden md:inline">Savatcha</span>
+                    <span id="nav-cart-badge" class="bg-tilak-secondary text-slate-900 text-[10px] sm:text-[11px] font-black w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center">0</span>
+                    <span id="nav-cart-total-text" class="hidden xl:inline text-xs font-semibold text-blue-200">0 so'm</span>
+                </button>
+
+                <!-- Phone Call Quick Button -->
+                <a href="tel:+998944436737" class="btn-interactive w-9 h-9 sm:w-auto sm:px-3 sm:py-2 rounded-xl bg-slate-100 hover:bg-tilak-light text-tilak-primary font-bold text-xs flex items-center justify-center border border-slate-200 transition-colors" title="Do'konga qo'ng'iroq qilish">
+                    <i class="fa-solid fa-phone text-xs text-tilak-secondary"></i>
+                    <span class="hidden 2xl:inline ml-2">+998 94 443 67 37</span>
+                </a>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" type="button" class="lg:hidden w-9 h-9 rounded-xl bg-slate-100 hover:bg-tilak-light text-tilak-primary flex items-center justify-center transition-colors focus:outline-none" aria-label="Menyuni ochish" aria-expanded="false">
+                    <i id="hamburger-icon" class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Slide Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-white border-b border-slate-100 shadow-xl overflow-hidden transition-all duration-300">
+            <div class="px-4 pt-3 pb-5 space-y-1.5">
+                <a href="#home" onclick="closeMobileMenu()" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-tilak-light hover:text-tilak-primary transition-colors">
+                    <i class="fa-solid fa-house text-tilak-secondary w-6"></i> Bosh sahifa
+                </a>
+                <a href="#categories" onclick="closeMobileMenu()" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-tilak-light hover:text-tilak-primary transition-colors">
+                    <i class="fa-solid fa-layer-group text-tilak-secondary w-6"></i> Kategoriyalar
+                </a>
+                <a href="#products" onclick="closeMobileMenu()" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-tilak-light hover:text-tilak-primary transition-colors">
+                    <i class="fa-solid fa-basket-shopping text-tilak-secondary w-6"></i> Mahsulotlar (162 ta)
+                </a>
+                <a href="#about" onclick="closeMobileMenu()" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-tilak-light hover:text-tilak-primary transition-colors">
+                    <i class="fa-solid fa-circle-check text-tilak-secondary w-6"></i> Biz haqimizda
+                </a>
+                <a href="#location" onclick="closeMobileMenu()" class="block px-3.5 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-tilak-light hover:text-tilak-primary transition-colors">
+                    <i class="fa-solid fa-location-dot text-tilak-secondary w-6"></i> Manzil va Yo'nalish
+                </a>
+                <a href="https://t.me/Tilaksupermarket_bot" target="_blank" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-sm font-extrabold text-[#0088cc] bg-[#229ED9]/10 border border-[#229ED9]/25">
+                    <i class="fa-brands fa-telegram text-base text-[#0088cc] w-6"></i> @Tilaksupermarket_bot
+                </a>
+                <div class="pt-3 border-t border-slate-100 flex flex-col gap-1.5 px-2 text-xs font-semibold text-slate-500">
+                    <div><i class="fa-regular fa-clock text-tilak-secondary mr-2"></i> Ish vaqti: 09:00 — 03:00</div>
+                    <div><i class="fa-solid fa-location-dot text-tilak-secondary mr-2"></i> Marg'ilon krugi yonida</div>
+                    <div><i class="fa-solid fa-phone text-tilak-secondary mr-2"></i> +998 94 443 67 37</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================================================
+         HERO SECTION (Mobile First)
+         ================================================== -->
+    <section id="home" class="relative pt-20 pb-10 sm:pt-36 sm:pb-20 overflow-hidden bg-gradient-to-b from-tilak-light/60 via-white to-slate-50">
+        
+        <div class="absolute top-10 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-tilak-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-64 sm:w-[28rem] h-64 sm:h-[28rem] bg-tilak-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+                
+                <!-- Left Column: Typography & CTAs -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-4 sm:space-y-6">
+                    
+                    <!-- Bot & Location Integration Badge -->
+                    <div class="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-white border border-tilak-secondary/40 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full shadow-soft">
+                        <img src="./logo.png" alt="Tilak" class="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover">
+                        <span class="text-[11px] sm:text-sm font-bold text-tilak-primary">
+                            Marg'ilon krugi yonida
+                        </span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span class="text-[10px] sm:text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                            @Tilaksupermarket_bot bilan ulangan
+                        </span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-tilak-primary tracking-tight leading-[1.15]">
+                        Tilak <span class="text-transparent bg-clip-text bg-gradient-to-r from-tilak-primary via-blue-700 to-tilak-secondary">Super Market</span>
+                    </h1>
+
+                    <!-- Subtitle / Slogan -->
+                    <p class="text-lg sm:text-2xl font-bold text-slate-800">
+                        “Barcha mahsulotlar bir joyda”
+                    </p>
+
+                    <p class="text-xs sm:text-base text-slate-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
+                        Sut mahsulotlari, salqin ichimliklar, shirinliklar va barcha oziq-ovqatlar — veb-saytimiz va Telegram botimiz orqali onlayn buyurtma bering! Har kuni <strong class="text-tilak-primary">09:00 dan 03:00 gacha</strong> xizmatingizdamiz.
+                    </p>
+
+                    <!-- CTAs for Mobile -->
+                    <div class="pt-1 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-3.5">
+                        <a href="#products" class="btn-interactive w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-sm sm:text-base px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl shadow-blue-glow">
+                            <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i>
+                            <span>Onlayn Xarid qilish</span>
+                        </a>
+                        <a href="https://t.me/Tilaksupermarket_bot" target="_blank" rel="noopener noreferrer" class="btn-interactive w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#229ED9] hover:bg-[#1D8BC4] text-white font-extrabold text-sm sm:text-base px-6 py-3.5 sm:px-7 sm:py-4 rounded-xl sm:rounded-2xl shadow-md">
+                            <i class="fa-brands fa-telegram text-lg sm:text-xl"></i>
+                            <span>Telegram Bot (@Tilaksupermarket_bot)</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Info Strip -->
+                    <div class="pt-2 grid grid-cols-3 gap-2 sm:gap-3 max-w-lg mx-auto lg:mx-0 border-t border-slate-200/70">
+                        <div class="flex items-center gap-2 text-left">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-boxes-stacked text-xs sm:text-sm text-tilak-secondary"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-[11px] sm:text-xs font-black text-tilak-primary truncate">162+ Mahsulot</div>
+                                <div class="text-[9px] sm:text-[11px] text-slate-500 font-medium truncate">Bot bilan sinxron</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-left">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center shrink-0">
+                                <i class="fa-regular fa-clock text-xs sm:text-sm text-tilak-secondary"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-[11px] sm:text-xs font-black text-tilak-primary truncate">09:00 — 03:00</div>
+                                <div class="text-[9px] sm:text-[11px] text-slate-500 font-medium truncate">Har kuni ochiq</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 text-left">
+                            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-truck-fast text-xs sm:text-sm text-tilak-secondary"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-[11px] sm:text-xs font-black text-tilak-primary truncate">Yetkazib berish</div>
+                                <div class="text-[9px] sm:text-[11px] text-slate-500 font-medium truncate">GPS orqali qulay</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Visual Graphic -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        
+                        <!-- Main Visual Card -->
+                        <div class="relative rounded-2xl sm:rounded-[2rem] overflow-hidden shadow-xl sm:shadow-2xl border-2 sm:border-4 border-white bg-tilak-primary aspect-[16/10] sm:aspect-[4/4.3]">
+                            <img src="./tilak_mega_hypermarket_interior_1791281130027.jpg" alt="Tilak Super Market interyeri" class="w-full h-full object-cover opacity-90">
+                            <div class="absolute inset-0 bg-gradient-to-t from-tilak-dark/95 via-tilak-primary/30 to-transparent"></div>
+                            
+                            <!-- Bottom Overlay Card -->
+                            <div class="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 bg-white/95 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 shadow-xl border border-white/50 space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2 sm:gap-2.5">
+                                        <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-tilak-primary text-tilak-secondary flex items-center justify-center text-xs sm:text-sm">
+                                            <i class="fa-solid fa-store"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-[11px] sm:text-xs font-extrabold text-slate-900">Marg'ilon krugi yonida</h4>
+                                            <p class="text-[9px] sm:text-[10px] text-slate-500 font-bold">Har kuni: 09:00 — 03:00</p>
+                                        </div>
+                                    </div>
+                                    <span class="text-[9px] sm:text-[10px] font-extrabold text-emerald-600 bg-emerald-100 px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg flex items-center gap-1">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Ochiq
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[10px] sm:text-[11px] font-bold text-tilak-primary">
+                                    <span>Do'kon & Bot katalogi:</span>
+                                    <span class="text-tilak-secondary font-black">162 ta faol mahsulot</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         CATEGORIES SECTION
+         ================================================== -->
+    <section id="categories" class="py-10 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-2xl mx-auto mb-6 sm:mb-10 space-y-1 sm:space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tilak-light text-tilak-primary text-[10px] sm:text-xs font-extrabold uppercase tracking-wider">
+                    <i class="fa-solid fa-layer-group text-tilak-secondary"></i> Bo'limlar
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-tilak-primary tracking-tight">
+                    Mahsulotlar Kategoriyalari
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium">
+                    Kerakli bo'limni tanlang va mahsulotlar ro'yxatini ko'ring.
+                </p>
+            </div>
+
+            <!-- Categories Grid (2 cols mobile, 4 cols desktop) -->
+            <div id="categories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-5">
+                <!-- Rendered dynamically -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================================================
+         PRODUCTS SHOWCASE & SHOPPING SECTION
+         ================================================== -->
+    <section id="products" class="py-12 sm:py-20 bg-slate-50 border-t border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+            
+            <!-- Section Header & Live Search -->
+            <div class="reveal flex flex-col lg:flex-row lg:items-end justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div class="space-y-1.5 sm:space-y-2">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tilak-primary/10 text-tilak-primary text-[10px] sm:text-xs font-extrabold uppercase tracking-wider">
+                        <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i> Onlayn Do'kon (162 ta mahsulot)
+                    </div>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-tilak-primary tracking-tight">
+                        Mahsulotlar Katalogi
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 font-medium max-w-xl">
+                        Mahsulotni savatga qo'shing va onlayn buyurtma bering. Telegram bot orqali supermarket kassa va adminiga darhol chek yuboriladi.
+                    </p>
+                </div>
+
+                <!-- Live Search Bar -->
+                <div class="w-full lg:w-96">
+                    <div class="relative group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-tilak-secondary transition-colors text-sm"></i>
+                        <input
+                            id="product-search"
+                            type="search"
+                            placeholder="Mahsulot qidirish... (sut, coca, non, qurut)"
+                            oninput="filterProducts()"
+                            class="w-full pl-10 pr-9 py-2.5 sm:py-3.5 bg-white border border-slate-200 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:border-tilak-secondary focus:ring-2 focus:ring-tilak-secondary/15 transition-all shadow-soft"
+                        >
+                        <button id="clear-search-btn" onclick="clearSearch()" type="button" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1" aria-label="Qidiruvni tozalash">
+                            <i class="fa-solid fa-circle-xmark text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Swipeable Filter Pills on Mobile -->
+            <div id="filter-pills" class="reveal flex items-center gap-2 overflow-x-auto pb-2.5 mb-4 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 no-scrollbar smooth-scroll">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Products Counter & Sort Bar -->
+            <div class="flex items-center justify-between pb-3 text-[11px] sm:text-xs font-bold text-slate-500">
+                <div>
+                    Ko'rsatilmoqda: <span id="shown-count" class="text-tilak-primary font-black">162</span> ta
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="hidden sm:inline">Saralash:</span>
+                    <select id="sort-select" onchange="filterProducts()" class="bg-white border border-slate-200 text-slate-700 text-[11px] sm:text-xs font-bold rounded-lg px-2 py-1 sm:px-2.5 sm:py-1.5 focus:outline-none focus:border-tilak-secondary">
+                        <option value="default">Standart</option>
+                        <option value="price-asc">Arzonroq</option>
+                        <option value="price-desc">Qimmatroq</option>
+                        <option value="name">Nomi (A-Z)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid: 2 cols on mobile, 3 on tablet, 4 on desktop -->
+            <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
+                <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="empty-search" class="hidden bg-white rounded-2xl sm:rounded-3xl p-8 sm:p-12 text-center border border-slate-100 shadow-soft my-6">
+                <div class="w-14 h-14 rounded-2xl bg-tilak-light text-tilak-primary flex items-center justify-center text-xl mx-auto mb-3">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-tilak-primary mb-1">Mahsulot topilmadi</h3>
+                <p class="text-xs text-slate-500 max-w-md mx-auto mb-4">
+                    Boshqa so'z bilan qidirib ko'ring yoki filtrlarni tozalang.
+                </p>
+                <button onclick="resetFilters()" type="button" class="btn-interactive inline-flex items-center gap-2 bg-tilak-primary text-white text-xs font-extrabold px-4 py-2.5 rounded-xl">
+                    <i class="fa-solid fa-rotate-left"></i> Filtrlarni tozalash
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==================================================
+         PROMO BANNER & TELEGRAM BOT CTA
+         ================================================== -->
+    <section class="py-10 sm:py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+            <div class="reveal relative rounded-2xl sm:rounded-[2.25rem] overflow-hidden bg-gradient-to-r from-tilak-dark via-tilak-primary to-blue-900 text-white p-6 sm:p-12 lg:p-16 shadow-xl sm:shadow-2xl">
+                
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-8 space-y-3 sm:space-y-4 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 rounded-full">
+                            <i class="fa-brands fa-telegram text-tilak-secondary"></i>
+                            <span class="text-[10px] sm:text-xs font-extrabold tracking-widest uppercase text-tilak-secondary">TELEGRAM BOT INTEGRATSIYASI</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+                            Telegram orqali ham qulay xarid qiling!
+                        </h2>
+                        <p class="text-xs sm:text-base text-blue-100 font-medium max-w-xl mx-auto lg:mx-0">
+                            Rasmiy botimiz <strong>@Tilaksupermarket_bot</strong> orqali barcha mahsulotlarni ko'rish, savatga yig'ish va buyurtma yuborish imkoni mavjud!
+                        </p>
+                        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4">
+                            <a href="https://t.me/Tilaksupermarket_bot" target="_blank" rel="noopener noreferrer" class="btn-interactive w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-[#229ED9] hover:bg-[#1D8BC4] text-white font-extrabold text-xs sm:text-base px-6 py-3.5 rounded-xl sm:rounded-2xl shadow-cyan-glow">
+                                <i class="fa-brands fa-telegram text-lg"></i>
+                                <span>Botga o'tish (@Tilaksupermarket_bot)</span>
+                            </a>
+                            <a href="#products" class="btn-interactive w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-bold text-xs sm:text-base px-5 py-3.5 rounded-xl sm:rounded-2xl">
+                                <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i>
+                                <span>Katalogga o'tish</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-4 flex justify-center">
+                        <div class="float-card-1 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 text-center space-y-3 max-w-xs w-full">
+                            <img src="./logo.png" alt="Tilak" class="w-20 h-20 rounded-full mx-auto border-2 border-tilak-secondary shadow-md object-cover">
+                            <div>
+                                <div class="text-lg font-extrabold text-white">Tilak Super Market</div>
+                                <div class="text-[11px] font-bold text-tilak-secondary uppercase tracking-wider mt-0.5">Marg'ilon krugi yonida</div>
+                            </div>
+                            <div class="text-[11px] font-semibold text-blue-200">
+                                Har kuni 09:00 — 03:00 dam olishsiz
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         ABOUT & ADVANTAGES SECTION
+         ================================================== -->
+    <section id="about" class="py-12 sm:py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-2xl mx-auto mb-8 sm:mb-14 space-y-1.5 sm:space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tilak-light text-tilak-primary text-[10px] sm:text-xs font-extrabold uppercase tracking-wider">
+                    <i class="fa-solid fa-award text-tilak-secondary"></i> Afzalliklarimiz
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-tilak-primary tracking-tight">
+                    Nega Tilak Super Market?
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium">
+                    Mijozlarimizga eng yuqori qulaylik va sarxil mahsulotlarni yetkazamiz.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
+                
+                <div class="reveal category-card bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-soft space-y-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center text-lg sm:text-xl shadow-sm">
+                        <i class="fa-solid fa-boxes-stacked text-tilak-secondary"></i>
+                    </div>
+                    <h3 class="text-xs sm:text-base font-extrabold text-tilak-primary">160+ Mahsulotlar</h3>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                        Sut mahsulotlari, salqin ichimliklar, qurut, shirinliklar.
+                    </p>
+                </div>
+
+                <div class="reveal category-card bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-soft space-y-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center text-lg sm:text-xl shadow-sm">
+                        <i class="fa-solid fa-robot text-tilak-secondary"></i>
+                    </div>
+                    <h3 class="text-xs sm:text-base font-extrabold text-tilak-primary">Bot Integratsiya</h3>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                        Saytdan yuborilgan buyurtma darhol Telegram kassa va adminga tushadi.
+                    </p>
+                </div>
+
+                <div class="reveal category-card bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-soft space-y-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center text-lg sm:text-xl shadow-sm">
+                        <i class="fa-regular fa-clock text-tilak-secondary"></i>
+                    </div>
+                    <h3 class="text-xs sm:text-base font-extrabold text-tilak-primary">09:00 — 03:00</h3>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                        Tungi 03:00 gacha uzluksiz, dam olish kunlarisiz xizmatingizda.
+                    </p>
+                </div>
+
+                <div class="reveal category-card bg-white p-4 sm:p-7 rounded-2xl sm:rounded-3xl border border-slate-100 shadow-soft space-y-2">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center text-lg sm:text-xl shadow-sm">
+                        <i class="fa-solid fa-location-dot text-tilak-secondary"></i>
+                    </div>
+                    <h3 class="text-xs sm:text-base font-extrabold text-tilak-primary">Marg'ilon Krugi</h3>
+                    <p class="text-[10px] sm:text-xs text-slate-500 font-medium leading-relaxed">
+                        Qulay joylashuv, keng avtoturargoh va tezkor yetkazib berish.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         LOCATION & MAP SECTION
+         ================================================== -->
+    <section id="location" class="py-12 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+            
+            <div class="reveal text-center max-w-2xl mx-auto mb-8 sm:mb-12 space-y-1.5 sm:space-y-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tilak-light text-tilak-primary text-[10px] sm:text-xs font-extrabold uppercase tracking-wider">
+                    <i class="fa-solid fa-location-crosshairs text-tilak-secondary"></i> Manzil va Yo'nalish
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-tilak-primary tracking-tight">
+                    Bizni Toping
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 font-medium">
+                    Marg'ilon krugi yonida sizni kutamiz.
+                </p>
+            </div>
+
+            <div class="reveal grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                
+                <!-- Location Details Card -->
+                <div class="lg:col-span-5 bg-slate-50 rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-slate-200/80 flex flex-col justify-between space-y-5">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
+                            <img src="./logo.png" alt="Tilak" class="w-12 h-12 rounded-full object-cover shadow-sm border border-tilak-secondary">
+                            <div>
+                                <h3 class="text-base sm:text-lg font-extrabold text-tilak-primary">Tilak Super Market</h3>
+                                <p class="text-[10px] sm:text-xs font-bold text-tilak-secondary uppercase tracking-wider">Barcha mahsulotlar bir joyda</p>
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-tilak-primary text-white flex items-center justify-center shrink-0 shadow-sm text-xs">
+                                <i class="fa-solid fa-location-dot text-tilak-secondary"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Manzil</div>
+                                <div class="text-xs sm:text-sm font-extrabold text-slate-800">Marg'ilon krugi yonida</div>
+                            </div>
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-tilak-primary text-white flex items-center justify-center shrink-0 shadow-sm text-xs">
+                                <i class="fa-solid fa-phone text-tilak-secondary"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Telefon raqam</div>
+                                <a href="tel:+998944436737" class="text-xs sm:text-sm font-extrabold text-tilak-primary hover:text-tilak-secondary transition-colors">
+                                    +998 94 443 67 37
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Telegram Bot -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-[#229ED9] text-white flex items-center justify-center shrink-0 shadow-sm text-xs">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Telegram Bot</div>
+                                <a href="https://t.me/Tilaksupermarket_bot" target="_blank" class="text-xs sm:text-sm font-extrabold text-[#0088cc] hover:underline">
+                                    @Tilaksupermarket_bot
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Hours -->
+                        <div class="flex items-start gap-3">
+                            <div class="w-9 h-9 rounded-xl bg-tilak-primary text-white flex items-center justify-center shrink-0 shadow-sm text-xs">
+                                <i class="fa-regular fa-clock text-tilak-secondary"></i>
+                            </div>
+                            <div>
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ish vaqti</div>
+                                <div class="text-xs sm:text-sm font-extrabold text-slate-800">09:00 — 03:00</div>
+                                <div class="text-[10px] font-semibold text-emerald-600">Har kuni ochiq</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Marg'ilon+krugi" target="_blank" rel="noopener noreferrer" class="btn-interactive flex-1 inline-flex items-center justify-center gap-2 bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-sm">
+                            <i class="fa-solid fa-map-location-dot text-tilak-secondary"></i>
+                            <span>Google Xaritada ochish</span>
+                        </a>
+                        <a href="tel:+998944436737" class="btn-interactive inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-tilak-primary border border-slate-300 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl">
+                            <i class="fa-solid fa-phone text-tilak-secondary"></i>
+                            <span>Qo'ng'iroq</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Visual Photo Frame -->
+                <div class="lg:col-span-7 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg border border-slate-200 relative min-h-[260px] sm:min-h-[380px] bg-slate-100">
+                    <img src="./tilak_mega_hypermarket_exterior_1791281086768.jpg" alt="Tilak Supermarket" class="w-full h-full object-cover min-h-[260px] sm:min-h-[380px]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-transparent flex items-end p-5 sm:p-7">
+                        <div class="text-white space-y-1">
+                            <span class="bg-tilak-secondary text-slate-950 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded">Marg'ilon krugi</span>
+                            <h4 class="text-base sm:text-xl font-extrabold text-white">Tilak Super Market Binosi</h4>
+                            <p class="text-[11px] sm:text-xs text-slate-300">Keng assortiment va sifatli xizmat ko'rsatish markazi.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================
+         FOOTER
+         ================================================== -->
+    <footer class="bg-tilak-dark text-white pt-10 sm:pt-14 pb-8 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 pb-8 border-b border-white/10 items-start">
+                
+                <div class="space-y-2.5">
+                    <a href="#home" class="flex items-center gap-2.5">
+                        <img src="./logo.png" alt="Tilak" class="w-10 h-10 rounded-full object-cover border border-tilak-secondary">
+                        <div>
+                            <div class="text-base font-extrabold text-white">Tilak Super Market</div>
+                            <div class="text-[10px] font-bold text-tilak-secondary uppercase tracking-widest">Barcha mahsulotlar bir joyda</div>
+                        </div>
+                    </a>
+                    <p class="text-xs text-slate-300 font-medium max-w-xs leading-relaxed">
+                        Marg'ilon krugi yonida joylashgan zamonaviy supermarket. Har kuni soat 09:00 dan tungi 03:00 gacha ochiq.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="text-xs font-extrabold uppercase tracking-widest text-tilak-secondary">Sahifalar</div>
+                    <ul class="space-y-1.5 text-xs font-semibold text-slate-300">
+                        <li><a href="#home" class="hover:text-tilak-secondary transition-colors">Bosh sahifa</a></li>
+                        <li><a href="#categories" class="hover:text-tilak-secondary transition-colors">Kategoriyalar</a></li>
+                        <li><a href="#products" class="hover:text-tilak-secondary transition-colors">Mahsulotlar (162 ta)</a></li>
+                        <li><a href="https://t.me/Tilaksupermarket_bot" target="_blank" class="hover:text-tilak-secondary transition-colors">Telegram Botimiz</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="text-xs font-extrabold uppercase tracking-widest text-tilak-secondary">Aloqa</div>
+                    <div class="space-y-1.5 text-xs text-slate-200 font-semibold">
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-phone text-tilak-secondary w-3.5"></i>
+                            <a href="tel:+998944436737" class="hover:text-tilak-secondary font-extrabold text-sm">+998 94 443 67 37</a>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-brands fa-telegram text-tilak-secondary w-3.5"></i>
+                            <a href="https://t.me/Tilaksupermarket_bot" target="_blank" class="hover:text-tilak-secondary">@Tilaksupermarket_bot</a>
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-tilak-secondary w-3.5"></i>
+                            <span>Marg'ilon krugi yonida</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-5 text-center text-xs text-slate-400 font-medium flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>&copy; 2026 Tilak Super Market. Barcha huquqlar himoyalangan.</div>
+                <div class="text-[10px] text-slate-500">Telegram Bot & Web Baza Integratsiyalashgan</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================================================
+         DESKTOP FLOATING CART BUTTON (Bottom-Right)
+         ================================================== -->
+    <div id="floating-cart-wrapper" class="hidden sm:block fixed bottom-6 right-6 z-40">
+        <button id="floating-cart-btn" onclick="openCartDrawer()" class="btn-interactive hidden items-center gap-3 bg-tilak-primary hover:bg-tilak-dark text-white px-5 py-3.5 rounded-2xl shadow-2xl border-2 border-tilak-secondary/50 group">
+            <div class="relative">
+                <i class="fa-solid fa-basket-shopping text-xl text-tilak-secondary group-hover:scale-110 transition-transform"></i>
+                <span id="floating-cart-count" class="absolute -top-2.5 -right-2.5 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
+            </div>
+            <div class="text-left">
+                <div class="text-[10px] uppercase font-bold text-slate-300">Savatcha</div>
+                <div id="floating-cart-total" class="text-sm font-extrabold text-white">0 so'm</div>
+            </div>
+        </button>
+    </div>
+
+    <!-- ==================================================
+         MOBILE STICKY BOTTOM CART BAR (Ultra Modern)
+         ================================================== -->
+    <div id="mobile-cart-bar" class="sm:hidden fixed bottom-3 left-3 right-3 z-40 hidden">
+        <button onclick="openCartDrawer()" class="w-full flex items-center justify-between bg-gradient-to-r from-tilak-primary via-blue-900 to-tilak-primary text-white px-4 py-3 rounded-2xl shadow-2xl border border-tilak-secondary/50 active:scale-[0.98] transition-transform">
+            <div class="flex items-center gap-2.5">
+                <div class="relative">
+                    <i class="fa-solid fa-basket-shopping text-base text-tilak-secondary"></i>
+                    <span id="mobile-cart-count" class="absolute -top-2 -right-2.5 bg-red-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </div>
+                <span class="text-xs font-black">Savatcha</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span id="mobile-cart-total" class="text-xs font-black text-tilak-secondary">0 so'm</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-300"></i>
+            </div>
+        </button>
+    </div>
+
+    <!-- ==================================================
+         CART DRAWER (Slide-Over from Right)
+         ================================================== -->
+    <div id="cart-backdrop" onclick="closeCartDrawer()" class="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0"></div>
+
+    <div id="cart-drawer" class="fixed top-0 right-0 bottom-0 z-50 w-full sm:max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-out">
+        
+        <!-- Cart Header -->
+        <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+            <div class="flex items-center gap-2.5">
+                <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-tilak-light text-tilak-primary flex items-center justify-center text-base sm:text-lg">
+                    <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm sm:text-base font-extrabold text-tilak-primary">Sizning Savatchangiz</h3>
+                    <p class="text-[11px] text-slate-500 font-medium"><span id="cart-drawer-count">0</span> ta mahsulot</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="clearCart()" title="Savatni tozalash" class="text-xs font-bold text-slate-400 hover:text-red-500 p-1.5 rounded-lg transition-colors">
+                    <i class="fa-regular fa-trash-can"></i>
+                </button>
+                <button onclick="closeCartDrawer()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cart Items List (Scrollable) -->
+        <div id="cart-items-container" class="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-2.5 smooth-scroll">
+            <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Empty Cart State -->
+        <div id="cart-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-6 text-center">
+            <div class="w-16 h-16 rounded-full bg-tilak-light text-tilak-primary flex items-center justify-center text-2xl mb-3">
+                <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i>
+            </div>
+            <h4 class="text-sm sm:text-base font-extrabold text-tilak-primary mb-1">Savatchangiz bo'sh</h4>
+            <p class="text-xs text-slate-500 max-w-xs mb-5">Katalogdan o'zingizga kerakli mahsulotlarni tanlang va savatga qo'shing.</p>
+            <button onclick="closeCartDrawer(); document.getElementById('products').scrollIntoView({behavior:'smooth'});" class="btn-interactive bg-tilak-primary text-white text-xs font-extrabold px-5 py-2.5 rounded-xl shadow-md">
+                Mahsulotlarni ko'rish
+            </button>
+        </div>
+
+        <!-- Cart Footer -->
+        <div id="cart-footer" class="p-4 sm:p-5 border-t border-slate-100 bg-slate-50/90 space-y-3">
+            <div class="space-y-1 text-xs font-semibold text-slate-600">
+                <div class="flex justify-between">
+                    <span>Mahsulotlar summasi:</span>
+                    <span id="cart-subtotal" class="font-bold text-slate-800">0 so'm</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Yetkazib berish:</span>
+                    <span class="text-emerald-600 font-bold">Hisoblanadi / Olib ketish bepul</span>
+                </div>
+                <div class="flex justify-between text-sm sm:text-base font-extrabold text-tilak-primary pt-1.5 border-t border-slate-200">
+                    <span>Jami to'lov:</span>
+                    <span id="cart-total" class="text-tilak-primary font-black">0 so'm</span>
+                </div>
+            </div>
+
+            <button onclick="openCheckoutModal()" type="button" class="btn-interactive w-full py-3.5 rounded-xl bg-gradient-to-r from-tilak-primary to-blue-700 hover:from-tilak-dark hover:to-tilak-primary text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-blue-glow">
+                <span>Buyurtma berishga o'tish</span>
+                <i class="fa-solid fa-arrow-right text-tilak-secondary text-xs"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ==================================================
+         CHECKOUT MODAL (Mobile Bottom-Sheet on small screens)
+         ================================================== -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/70 backdrop-blur-sm" role="dialog" aria-modal="true">
+        <div class="bg-white rounded-t-[2rem] sm:rounded-3xl max-w-lg w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100">
+            
+            <!-- Modal Header -->
+            <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80 shrink-0">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-tilak-primary text-tilak-secondary flex items-center justify-center text-base">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm sm:text-base font-extrabold text-tilak-primary">Buyurtmani Rasmiylashtirish</h3>
+                        <p class="text-[10px] sm:text-xs text-slate-500 font-medium">@Tilaksupermarket_bot</p>
+                    </div>
+                </div>
+                <button onclick="closeCheckoutModal()" type="button" class="w-8 h-8 rounded-xl bg-slate-200/80 hover:bg-slate-300 text-slate-700 flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body Form (Scrollable) -->
+            <form id="order-form" onsubmit="handleOrderSubmit(event)" class="p-4 sm:p-6 space-y-3.5 overflow-y-auto flex-1 smooth-scroll">
+                
+                <!-- 1. Delivery Method Selector -->
+                <div>
+                    <label class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-1.5">
+                        Yetkazib berish usuli <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" id="delivery-btn-delivery" onclick="setDeliveryMethod('DELIVERY')" class="p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-truck-fast text-sm text-tilak-secondary"></i>
+                            <span>Yetkazib berish</span>
+                        </button>
+                        <button type="button" id="delivery-btn-pickup" onclick="setDeliveryMethod('PICKUP')" class="p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300">
+                            <i class="fa-solid fa-store text-sm text-slate-400"></i>
+                            <span>Olib ketish</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Customer Name -->
+                <div>
+                    <label for="customer-name" class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-1">
+                        Ism va Familiyangiz <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="text" id="customer-name" required placeholder="Masalan: Alisher Vohidov" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-sm font-semibold focus:outline-none focus:border-tilak-secondary focus:ring-2 focus:ring-tilak-secondary/20">
+                    </div>
+                </div>
+
+                <!-- 3. Phone Number -->
+                <div>
+                    <label for="customer-phone" class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-1">
+                        Telefon raqamingiz <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <i class="fa-solid fa-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                        <input type="tel" id="customer-phone" required value="+998 " placeholder="+998 90 123 45 67" class="w-full pl-9 pr-3.5 py-2.5 rounded-xl border border-slate-200 text-base sm:text-sm font-semibold focus:outline-none focus:border-tilak-secondary focus:ring-2 focus:ring-tilak-secondary/20">
+                    </div>
+                </div>
+
+                <!-- 4. Delivery Address & GPS Location -->
+                <div id="address-wrapper" class="space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <label for="customer-address" class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">
+                            Yetkazish manzili <span class="text-red-500">*</span>
+                        </label>
+                        <button type="button" onclick="getCurrentGpsLocation()" id="gps-locate-btn" class="inline-flex items-center gap-1 text-[11px] font-extrabold text-tilak-primary hover:text-tilak-secondary transition-colors">
+                            <i class="fa-solid fa-crosshairs text-tilak-secondary text-xs"></i>
+                            <span>GPS Aniqlash</span>
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <i class="fa-solid fa-location-dot absolute left-3.5 top-3 text-slate-400 text-xs"></i>
+                        <textarea id="customer-address" rows="2" placeholder="Ko'cha, uy raqami, mo'ljal..." class="w-full pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 text-base sm:text-sm font-semibold focus:outline-none focus:border-tilak-secondary focus:ring-2 focus:ring-tilak-secondary/20"></textarea>
+                    </div>
+                    <div id="gps-status" class="hidden text-[10px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200 items-center gap-1.5">
+                        <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                        <span id="gps-status-text">GPS joylashuv olindi</span>
+                    </div>
+                </div>
+
+                <!-- 5. Payment Method -->
+                <div>
+                    <label class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-1.5">
+                        To'lov turi <span class="text-red-500">*</span>
+                    </label>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" id="payment-btn-cash" onclick="setPaymentMethod('CASH')" class="p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-money-bill-wave text-emerald-600 text-sm"></i>
+                            <span>Naqd pul</span>
+                        </button>
+                        <button type="button" id="payment-btn-click" onclick="setPaymentMethod('CLICK')" class="p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300">
+                            <i class="fa-solid fa-credit-card text-blue-500 text-sm"></i>
+                            <span>Click orqali</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 6. Additional Notes -->
+                <div>
+                    <label for="customer-notes" class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider mb-1">
+                        Qo'shimcha izoh (ixtiyoriy)
+                    </label>
+                    <input type="text" id="customer-notes" placeholder="Masalan: Domofon kodi 45..." class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-base sm:text-sm font-semibold focus:outline-none focus:border-tilak-secondary">
+                </div>
+
+                <!-- Order Summary Breakdown -->
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
+                    <div class="flex justify-between text-xs font-bold text-slate-600">
+                        <span>Tanlangan mahsulotlar:</span>
+                        <span id="checkout-items-summary" class="text-slate-800 font-extrabold">0 ta</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-extrabold text-tilak-primary pt-1 border-t border-slate-200">
+                        <span>Jami summa:</span>
+                        <span id="checkout-total-price" class="text-tilak-primary font-black">0 so'm</span>
+                    </div>
+                </div>
+
+                <!-- Error Message Banner -->
+                <div id="checkout-error" class="hidden p-2.5 rounded-xl bg-red-50 text-red-600 border border-red-200 text-xs font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-exclamation text-red-500"></i>
+                    <span id="checkout-error-text">Xatolik</span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-1">
+                    <button type="submit" id="checkout-submit-btn" class="btn-interactive w-full py-3.5 rounded-xl bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-blue-glow">
+                        <i class="fa-solid fa-paper-plane text-tilak-secondary text-xs"></i>
+                        <span id="checkout-submit-text">Buyurtmani Tasdiqlash</span>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ==================================================
+         ORDER SUCCESS MODAL
+         ================================================== -->
+    <div id="success-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm" role="dialog" aria-modal="true">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-100 p-6 text-center space-y-4">
+            
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto shadow-inner">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="space-y-1">
+                <span class="bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full">Qabul qilindi</span>
+                <h3 class="text-xl font-extrabold text-tilak-primary pt-1">Buyurtmangiz Qabul Qilindi!</h3>
+                <p class="text-xs text-slate-500 font-medium">
+                    Buyurtmangiz supermarket adminiga va kassa tizimiga yetib bordi. Operator tez orada siz bilan bog'lanadi.
+                </p>
+            </div>
+
+            <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-100 space-y-1 text-xs text-left">
+                <div class="flex justify-between font-bold text-slate-500">
+                    <span>Buyurtma ID:</span>
+                    <span id="success-order-id" class="font-extrabold text-tilak-primary">#TILAK-...</span>
+                </div>
+                <div class="flex justify-between font-bold text-slate-500">
+                    <span>Jami summa:</span>
+                    <span id="success-order-total" class="font-black text-slate-900">0 so'm</span>
+                </div>
+                <div class="flex justify-between font-bold text-slate-500">
+                    <span>Yetkazish turi:</span>
+                    <span id="success-order-method" class="font-bold text-slate-800">Yetkazib berish</span>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <a id="success-bot-link" href="https://t.me/Tilaksupermarket_bot" target="_blank" class="btn-interactive w-full py-3 rounded-xl bg-[#229ED9] hover:bg-[#1D8BC4] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-brands fa-telegram text-base"></i>
+                    <span>Telegram Botda kuzatish (@Tilaksupermarket_bot)</span>
+                </a>
+                <a href="tel:+998944436737" class="btn-interactive w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-phone text-tilak-secondary"></i>
+                    <span>Do'konga qo'ng'iroq qilish (+998 94 443 67 37)</span>
+                </a>
+                <button onclick="closeSuccessModal()" type="button" class="w-full py-2 text-xs font-bold text-slate-400 hover:text-slate-600">
+                    Bosh sahifaga qaytish
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ==================================================
+         PRODUCT DETAIL MODAL
+         ================================================== -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm" role="dialog" aria-modal="true">
+        <div class="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-100">
+            <div class="relative h-52 sm:h-60 bg-slate-100">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeProductModal()" type="button" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-900/70 text-white hover:bg-slate-900 flex items-center justify-center transition-colors" aria-label="Yopish">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+                <span id="modal-category" class="absolute bottom-3 left-3 bg-tilak-primary text-white text-[11px] font-extrabold px-2.5 py-0.5 rounded-lg"></span>
+            </div>
+            <div class="p-5 space-y-3.5">
+                <div class="flex items-start justify-between gap-2">
+                    <h3 id="modal-title" class="text-base sm:text-lg font-extrabold text-tilak-primary"></h3>
+                    <div id="modal-badge-wrapper"></div>
+                </div>
+                <p id="modal-desc" class="text-xs text-slate-600 leading-relaxed font-medium max-h-28 overflow-y-auto smooth-scroll"></p>
+                
+                <div class="bg-tilak-light/80 p-3 rounded-xl border border-tilak-secondary/30 flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-500">Narxi:</span>
+                    <div id="modal-price-box" class="text-right">
+                        <span id="modal-price" class="text-base sm:text-lg font-black text-tilak-primary">0 so'm</span>
+                    </div>
+                </div>
+
+                <div class="pt-1 flex gap-2.5">
+                    <button id="modal-cart-btn" onclick="" class="btn-interactive flex-1 bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-xs sm:text-sm py-3 rounded-xl text-center flex items-center justify-center gap-2 shadow-sm">
+                        <i class="fa-solid fa-basket-shopping text-tilak-secondary"></i>
+                        <span>Savatga qo'shish</span>
+                    </button>
+                    <button onclick="closeProductModal()" type="button" class="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors">
+                        Yopish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================================================
+         SCRIPTS: DATA & COMPLETE SHOPPING SYSTEM
+         ================================================== -->
+    <script src="./data.js"></script>
+
+    <script>
+        // Global State
+        let currentCategoryFilter = 'all';
+        let currentOrderDeliveryMethod = 'DELIVERY';
+        let currentOrderPaymentMethod = 'CASH';
+        let userGpsCoords = null;
+        let cart = [];
+
+        // Helper: Format Money
+        function formatMoney(amount) {
+            if (amount === undefined || amount === null) return '0';
+            return Number(amount).toLocaleString('uz-UZ').replace(/,/g, ' ');
+        }
+
+        // Cart Storage Management
+        function initCartFromStorage() {
+            try {
+                const saved = localStorage.getItem('tilak_cart');
+                if (saved) {
+                    cart = JSON.parse(saved);
+                }
+            } catch (e) {
+                cart = [];
+            }
+            updateCartUI();
+        }
+
+        function saveCartToStorage() {
+            try {
+                localStorage.setItem('tilak_cart', JSON.stringify(cart));
+            } catch (e) {}
+            updateCartUI();
+        }
+
+        function addToCart(productId) {
+            const product = window.TILAK_DATA.products.find(p => p.id === productId);
+            if (!product) return;
+
+            const hasDiscount = product.discount && product.discount > 0 && product.discount < product.price;
+            const finalPrice = hasDiscount ? product.discount : product.price;
+
+            const existingIndex = cart.findIndex(item => item.id === productId);
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: finalPrice,
+                    image: product.image,
+                    category: product.category,
+                    qty: 1
+                });
+            }
+
+            saveCartToStorage();
+            reRenderProductsOnly();
+
+            const navBtn = document.getElementById('nav-cart-btn');
+            if (navBtn) {
+                navBtn.classList.add('scale-105');
+                setTimeout(() => navBtn.classList.remove('scale-105'), 200);
+            }
+        }
+
+        function changeCartQty(productId, delta) {
+            const itemIndex = cart.findIndex(item => item.id === productId);
+            if (itemIndex === -1) return;
+
+            cart[itemIndex].qty += delta;
+            if (cart[itemIndex].qty <= 0) {
+                cart.splice(itemIndex, 1);
+            }
+
+            saveCartToStorage();
+            reRenderProductsOnly();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCartToStorage();
+            reRenderProductsOnly();
+        }
+
+        function clearCart() {
+            if (cart.length === 0) return;
+            if (confirm("Haqiqatan ham savatchani tozalamoqchimisiz?")) {
+                cart = [];
+                saveCartToStorage();
+                reRenderProductsOnly();
+            }
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const formattedTotal = formatMoney(totalPrice) + " so'm";
+
+            // Navbar Cart elements
+            const navBadge = document.getElementById('nav-cart-badge');
+            const navTotal = document.getElementById('nav-cart-total-text');
+            if (navBadge) navBadge.textContent = totalCount;
+            if (navTotal) navTotal.textContent = formattedTotal;
+
+            // Desktop Floating Cart button
+            const floatBtn = document.getElementById('floating-cart-btn');
+            const floatCount = document.getElementById('floating-cart-count');
+            const floatTotal = document.getElementById('floating-cart-total');
+            if (floatBtn && floatCount && floatTotal) {
+                if (totalCount > 0) {
+                    floatBtn.classList.remove('hidden');
+                    floatBtn.classList.add('flex');
+                    floatCount.textContent = totalCount;
+                    floatTotal.textContent = formattedTotal;
+                } else {
+                    floatBtn.classList.add('hidden');
+                    floatBtn.classList.remove('flex');
+                }
+            }
+
+            // Mobile Bottom Sticky Cart Bar
+            const mobileBar = document.getElementById('mobile-cart-bar');
+            const mobileCount = document.getElementById('mobile-cart-count');
+            const mobileTotal = document.getElementById('mobile-cart-total');
+            if (mobileBar && mobileCount && mobileTotal) {
+                if (totalCount > 0) {
+                    mobileBar.classList.remove('hidden');
+                    mobileCount.textContent = totalCount;
+                    mobileTotal.textContent = formattedTotal;
+                } else {
+                    mobileBar.classList.add('hidden');
+                }
+            }
+
+            // Cart Drawer contents
+            const drawerCount = document.getElementById('cart-drawer-count');
+            const drawerSubtotal = document.getElementById('cart-subtotal');
+            const drawerTotal = document.getElementById('cart-total');
+            const itemsContainer = document.getElementById('cart-items-container');
+            const emptyState = document.getElementById('cart-empty-state');
+            const cartFooter = document.getElementById('cart-footer');
+
+            if (drawerCount) drawerCount.textContent = totalCount;
+            if (drawerSubtotal) drawerSubtotal.textContent = formattedTotal;
+            if (drawerTotal) drawerTotal.textContent = formattedTotal;
+
+            if (itemsContainer && emptyState && cartFooter) {
+                if (cart.length === 0) {
+                    itemsContainer.innerHTML = '';
+                    emptyState.classList.remove('hidden');
+                    cartFooter.classList.add('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    cartFooter.classList.remove('hidden');
+                    itemsContainer.innerHTML = cart.map(item => `
+                        <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-lg object-cover bg-white border border-slate-200 shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-xs font-extrabold text-slate-800 truncate">${item.name}</h4>
+                                <div class="text-[11px] font-bold text-tilak-secondary mt-0.5">${formatMoney(item.price)} so'm</div>
+                                <div class="text-[10px] text-slate-400 font-medium">${item.category}</div>
+                            </div>
+                            <div class="flex items-center gap-1 shrink-0">
+                                <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 rounded-md bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center justify-center text-xs font-bold active:scale-90 transition">
+                                    <i class="fa-solid fa-minus text-[9px]"></i>
+                                </button>
+                                <span class="text-xs font-black text-tilak-primary w-4.5 text-center">${item.qty}</span>
+                                <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 rounded-md bg-tilak-primary text-white hover:bg-tilak-dark flex items-center justify-center text-xs font-bold active:scale-90 transition">
+                                    <i class="fa-solid fa-plus text-[9px]"></i>
+                                </button>
+                                <button onclick="removeFromCart('${item.id}')" title="O'chirish" class="w-6 h-6 rounded-md text-slate-300 hover:text-red-500 flex items-center justify-center text-xs transition ml-0.5">
+                                    <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        // Cart Drawer Controls
+        function openCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            updateCartUI();
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+                backdrop.classList.add('opacity-100');
+                drawer.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const backdrop = document.getElementById('cart-backdrop');
+            drawer.classList.add('translate-x-full');
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+
+        // Checkout Modal Controls
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert("Savatchangiz bo'sh. Iltimos, avval mahsulot tanlang!");
+                return;
+            }
+            closeCartDrawer();
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            document.getElementById('checkout-items-summary').textContent = `${totalCount} ta mahsulot`;
+            document.getElementById('checkout-total-price').textContent = formatMoney(totalPrice) + " so'm";
+            document.getElementById('checkout-error').classList.add('hidden');
+
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function setDeliveryMethod(method) {
+            currentOrderDeliveryMethod = method;
+            const delBtn = document.getElementById('delivery-btn-delivery');
+            const pickBtn = document.getElementById('delivery-btn-pickup');
+            const addressWrapper = document.getElementById('address-wrapper');
+            const addressInput = document.getElementById('customer-address');
+
+            if (method === 'DELIVERY') {
+                delBtn.className = "p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all";
+                pickBtn.className = "p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300";
+                addressWrapper.classList.remove('hidden');
+                addressInput.setAttribute('required', 'required');
+            } else {
+                pickBtn.className = "p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all";
+                delBtn.className = "p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300";
+                addressWrapper.classList.add('hidden');
+                addressInput.removeAttribute('required');
+            }
+        }
+
+        function setPaymentMethod(method) {
+            currentOrderPaymentMethod = method;
+            const cashBtn = document.getElementById('payment-btn-cash');
+            const clickBtn = document.getElementById('payment-btn-click');
+
+            if (method === 'CASH') {
+                cashBtn.className = "p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all";
+                clickBtn.className = "p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300";
+            } else {
+                clickBtn.className = "p-3 rounded-xl border-2 border-tilak-secondary bg-tilak-light text-tilak-primary font-extrabold text-xs flex items-center justify-center gap-2 transition-all";
+                cashBtn.className = "p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-600 font-bold text-xs flex items-center justify-center gap-2 transition-all hover:border-slate-300";
+            }
+        }
+
+        // GPS Geolocation Handler
+        function getCurrentGpsLocation() {
+            const gpsBtn = document.getElementById('gps-locate-btn');
+            const statusBox = document.getElementById('gps-status');
+            const statusText = document.getElementById('gps-status-text');
+            const addressInput = document.getElementById('customer-address');
+
+            if (!navigator.geolocation) {
+                alert("Brauzeringizda GPS lokatsiya qo'llab-quvvatlanmaydi. Manzilingizni qo'lda kiriting.");
+                return;
+            }
+
+            gpsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-tilak-secondary"></i> <span>Aniqlanmoqda...</span>';
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    userGpsCoords = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    gpsBtn.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-500"></i> <span class="text-emerald-600">Lokatsiya olindi</span>';
+                    statusBox.classList.remove('hidden');
+                    statusBox.classList.add('flex');
+                    statusText.textContent = `GPS: ${userGpsCoords.lat.toFixed(5)}, ${userGpsCoords.lng.toFixed(5)}`;
+
+                    if (!addressInput.value.trim()) {
+                        addressInput.value = `GPS: ${userGpsCoords.lat.toFixed(5)}, ${userGpsCoords.lng.toFixed(5)} (Marg'ilon krugi atrofida)`;
+                    }
+                },
+                (error) => {
+                    gpsBtn.innerHTML = '<i class="fa-solid fa-crosshairs text-tilak-secondary"></i> <span>GPS Aniqlash</span>';
+                    alert("Lokatsiyani aniqlashga ruxsat berilmadi. Iltimos, manzilingizni qo'lda yozing.");
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        // Handle Order Form Submission to Backend API & Telegram Bot
+        async function handleOrderSubmit(e) {
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                alert("Savatchangiz bo'sh!");
+                return;
+            }
+
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+            const notes = document.getElementById('customer-notes').value.trim();
+            const errorBox = document.getElementById('checkout-error');
+            const errorText = document.getElementById('checkout-error-text');
+            const submitBtn = document.getElementById('checkout-submit-btn');
+            const submitText = document.getElementById('checkout-submit-text');
+
+            if (!name) {
+                errorBox.classList.remove('hidden');
+                errorText.textContent = "Iltimos, ismingizni kiriting";
+                return;
+            }
+
+            if (!phone || phone === '+998' || phone.length < 9) {
+                errorBox.classList.remove('hidden');
+                errorText.textContent = "Iltimos, to'liq telefon raqamingizni kiriting";
+                return;
+            }
+
+            if (currentOrderDeliveryMethod === 'DELIVERY' && !address) {
+                errorBox.classList.remove('hidden');
+                errorText.textContent = "Iltimos, yetkazib berish manzilini kiriting";
+                return;
+            }
+
+            errorBox.classList.add('hidden');
+            submitBtn.disabled = true;
+            submitText.textContent = "Yuborilmoqda...";
+
+            const orderPayload = {
+                userId: "guest_user",
+                fullName: name,
+                phone: phone,
+                deliveryMethod: currentOrderDeliveryMethod,
+                address: currentOrderDeliveryMethod === 'DELIVERY' ? address : "Tilak Supermarket (Marg'ilon krugi yonida)",
+                locationLat: userGpsCoords ? userGpsCoords.lat : null,
+                locationLng: userGpsCoords ? userGpsCoords.lng : null,
+                paymentMethod: currentOrderPaymentMethod,
+                comment: notes || null,
+                items: cart.map(item => ({
+                    productId: item.id,
+                    quantity: item.qty,
+                    price: item.price
+                }))
+            };
+
+            const tenantId = window.TILAK_CONFIG.tenantId;
+            let orderResponse = null;
+
+            try {
+                const resp = await fetch(`${window.TILAK_CONFIG.apiUrl}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'tenant-id': tenantId
+                    },
+                    body: JSON.stringify(orderPayload)
+                });
+
+                if (resp.ok) {
+                    orderResponse = await resp.json();
+                } else {
+                    throw new Error(`Server xatosi: ${resp.status}`);
+                }
+            } catch (err) {
+                console.warn("Primary API failed, trying fallback API:", err);
+                try {
+                    const fallbackResp = await fetch(`${window.TILAK_CONFIG.fallbackApiUrl}/orders`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'tenant-id': tenantId
+                        },
+                        body: JSON.stringify(orderPayload)
+                    });
+                    if (fallbackResp.ok) {
+                        orderResponse = await fallbackResp.json();
+                    }
+                } catch (fallbackErr) {
+                    console.warn("Fallback API also failed:", fallbackErr);
+                }
+            }
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const orderId = orderResponse && orderResponse.id ? `#${orderResponse.id.slice(0, 8).toUpperCase()}` : `#TILAK-${Date.now().toString().slice(-6)}`;
+
+            cart = [];
+            saveCartToStorage();
+
+            document.getElementById('order-form').reset();
+            document.getElementById('customer-phone').value = '+998 ';
+            userGpsCoords = null;
+            document.getElementById('gps-status').classList.add('hidden');
+            submitBtn.disabled = false;
+            submitText.textContent = "Buyurtmani Tasdiqlash";
+            closeCheckoutModal();
+
+            openSuccessModal(orderId, totalPrice, currentOrderDeliveryMethod);
+        }
+
+        function openSuccessModal(orderId, total, method) {
+            document.getElementById('success-order-id').textContent = orderId;
+            document.getElementById('success-order-total').textContent = formatMoney(total) + " so'm";
+            document.getElementById('success-order-method').textContent = method === 'DELIVERY' ? "🚗 Yetkazib berish (Dostavka)" : "🏃 Olib ketish (Samovivoz)";
+
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Render Categories
+        function renderCategories() {
+            const grid = document.getElementById('categories-grid');
+            const categories = window.TILAK_DATA.categories;
+
+            grid.innerHTML = categories.map((cat, index) => `
+                <div onclick="selectCategoryFromCard('${cat.id}')" 
+                     class="reveal category-card group cursor-pointer bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 overflow-hidden shadow-soft flex flex-col justify-between p-3.5 sm:p-5 hover:border-tilak-secondary transition-all">
+                    <div class="flex items-center gap-2.5 sm:gap-3.5 mb-2 sm:mb-3">
+                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-tilak-light text-tilak-primary group-hover:bg-tilak-primary group-hover:text-white flex items-center justify-center text-sm sm:text-lg transition-colors shrink-0">
+                            <i class="fa-solid ${cat.icon || 'fa-basket-shopping'}"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h3 class="text-xs sm:text-base font-extrabold text-slate-800 group-hover:text-tilak-primary transition-colors truncate">
+                                ${cat.name}
+                            </h3>
+                            <span class="text-[10px] sm:text-[11px] font-bold text-slate-400 group-hover:text-tilak-secondary transition-colors">
+                                ${cat.count}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] sm:text-xs font-bold text-tilak-primary pt-1.5 sm:pt-2 border-t border-slate-100 group-hover:text-tilak-secondary">
+                        <span>Ko'rish</span>
+                        <i class="fa-solid fa-arrow-right text-[9px] sm:text-[10px] transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Filter Pills
+        function renderFilterPills() {
+            const container = document.getElementById('filter-pills');
+            const categories = window.TILAK_DATA.categories;
+            const totalCount = window.TILAK_DATA.products.length;
+
+            const allActive = currentCategoryFilter === 'all';
+            let pillsHtml = `
+                <button onclick="setCategoryFilter('all')" type="button" class="btn-interactive shrink-0 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap ${allActive ? 'bg-tilak-primary text-white shadow-md' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}">
+                    <i class="fa-solid fa-border-all mr-1.5 ${allActive ? 'text-tilak-secondary' : 'text-slate-400'}"></i>
+                    Barchasi (${totalCount})
+                </button>
+            `;
+
+            pillsHtml += categories.map(cat => {
+                const isActive = currentCategoryFilter === cat.id;
+                const catProducts = window.TILAK_DATA.products.filter(p => p.categoryId === cat.id);
+                return `
+                    <button onclick="setCategoryFilter('${cat.id}')" type="button" class="btn-interactive shrink-0 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs font-extrabold transition-all whitespace-nowrap ${isActive ? 'bg-tilak-primary text-white shadow-md' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'}">
+                        <i class="fa-solid ${cat.icon || 'fa-tag'} mr-1.5 ${isActive ? 'text-tilak-secondary' : 'text-slate-400'}"></i>
+                        ${cat.name} (${catProducts.length})
+                    </button>
+                `;
+            }).join('');
+
+            container.innerHTML = pillsHtml;
+        }
+
+        // Render Products Showcase
+        function renderProducts(productsList) {
+            const grid = document.getElementById('products-grid');
+            const emptyState = document.getElementById('empty-search');
+            const shownCount = document.getElementById('shown-count');
+
+            if (shownCount) shownCount.textContent = productsList.length;
+
+            if (productsList.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = productsList.map(prod => {
+                const inCartItem = cart.find(i => i.id === prod.id);
+                const inCartQty = inCartItem ? inCartItem.qty : 0;
+
+                const hasDiscount = prod.discount && prod.discount > 0 && prod.discount < prod.price;
+                const finalPrice = hasDiscount ? prod.discount : prod.price;
+
+                return `
+                    <div class="product-card bg-white rounded-2xl sm:rounded-3xl border border-slate-200/80 overflow-hidden shadow-soft flex flex-col justify-between">
+                        <div>
+                            <!-- Product Image -->
+                            <div class="relative h-32 sm:h-44 overflow-hidden bg-slate-100 cursor-pointer" onclick="openProductModal('${prod.id}')">
+                                <img src="${prod.image}" alt="${prod.name}" loading="lazy" onerror="this.src='./tilak_scene_fresh_groceries_1791044122311.jpg'" class="prod-img w-full h-full object-cover transition-transform duration-500">
+                                
+                                ${prod.badge ? `
+                                    <span class="absolute top-2 left-2 bg-white/95 backdrop-blur-md text-tilak-primary text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded shadow-sm border border-slate-100">
+                                        ${prod.badge}
+                                    </span>
+                                ` : ''}
+
+                                ${hasDiscount ? `
+                                    <span class="absolute top-2 right-2 bg-red-500 text-white text-[9px] sm:text-[10px] font-black px-1.5 py-0.5 rounded shadow-sm">
+                                        Aksiya
+                                    </span>
+                                ` : ''}
+                            </div>
+
+                            <!-- Content Info -->
+                            <div class="p-2.5 sm:p-4">
+                                <div class="text-[9px] sm:text-[11px] font-bold text-tilak-secondary uppercase tracking-wider mb-0.5">
+                                    ${prod.category}
+                                </div>
+                                <h3 onclick="openProductModal('${prod.id}')" class="text-xs sm:text-base font-extrabold text-slate-800 line-clamp-2 min-h-[2.3rem] leading-snug cursor-pointer hover:text-tilak-primary transition-colors" title="${prod.name}">
+                                    ${prod.name}
+                                </h3>
+                                <p class="text-[10px] sm:text-xs text-slate-400 font-medium line-clamp-1 mt-0.5">
+                                    ${prod.desc || 'Tilak Supermarketida har doim mavjud.'}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Price & Action Section -->
+                        <div class="px-2.5 pb-2.5 sm:px-4 sm:pb-4 pt-1.5 sm:pt-2 border-t border-slate-100 space-y-2">
+                            
+                            <!-- Price Tag -->
+                            <div class="flex items-baseline justify-between">
+                                <div>
+                                    <span class="text-xs sm:text-base font-black text-tilak-primary">${formatMoney(finalPrice)} so'm</span>
+                                    ${hasDiscount ? `
+                                        <span class="text-[9px] sm:text-[11px] font-semibold text-slate-400 line-through ml-1">${formatMoney(prod.price)}</span>
+                                    ` : ''}
+                                </div>
+                                <button onclick="openProductModal('${prod.id}')" class="text-[11px] font-bold text-slate-400 hover:text-tilak-secondary transition-colors" title="Batafsil">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </button>
+                            </div>
+
+                            <!-- Cart Add/Qty Button -->
+                            ${inCartQty > 0 ? `
+                                <div class="flex items-center justify-between bg-tilak-light p-1 rounded-lg sm:rounded-xl border border-tilak-secondary/40">
+                                    <button onclick="changeCartQty('${prod.id}', -1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-white shadow-sm text-tilak-primary font-bold hover:bg-tilak-secondary hover:text-white transition flex items-center justify-center active:scale-90">
+                                        <i class="fa-solid fa-minus text-[10px]"></i>
+                                    </button>
+                                    <span class="font-black text-xs sm:text-sm text-tilak-primary px-1">${inCartQty} ta</span>
+                                    <button onclick="changeCartQty('${prod.id}', 1)" class="w-7 h-7 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-tilak-primary text-white font-bold hover:bg-tilak-dark shadow-sm flex items-center justify-center active:scale-90">
+                                        <i class="fa-solid fa-plus text-[10px]"></i>
+                                    </button>
+                                </div>
+                            ` : `
+                                <button onclick="addToCart('${prod.id}')" type="button" class="btn-interactive w-full py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-tilak-primary hover:bg-tilak-dark text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-sm">
+                                    <i class="fa-solid fa-cart-plus text-tilak-secondary text-xs"></i>
+                                    <span>Savatga</span>
+                                </button>
+                            `}
+
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function reRenderProductsOnly() {
+            filterProducts();
+        }
+
+        // Filter & Sort Products
+        function filterProducts() {
+            const searchInput = document.getElementById('product-search');
+            const clearBtn = document.getElementById('clear-search-btn');
+            const sortSelect = document.getElementById('sort-select');
+            const query = searchInput.value.trim().toLowerCase();
+
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+
+            let filtered = window.TILAK_DATA.products.filter(p => {
+                const matchesCategory = currentCategoryFilter === 'all' || p.categoryId === currentCategoryFilter;
+                const matchesQuery = !query || 
+                    p.name.toLowerCase().includes(query) || 
+                    p.category.toLowerCase().includes(query) || 
+                    (p.desc && p.desc.toLowerCase().includes(query));
+                return matchesCategory && matchesQuery;
+            });
+
+            const sortVal = sortSelect ? sortSelect.value : 'default';
+            if (sortVal === 'price-asc') {
+                filtered.sort((a, b) => {
+                    const priceA = (a.discount && a.discount > 0) ? a.discount : a.price;
+                    const priceB = (b.discount && b.discount > 0) ? b.discount : b.price;
+                    return priceA - priceB;
+                });
+            } else if (sortVal === 'price-desc') {
+                filtered.sort((a, b) => {
+                    const priceA = (a.discount && a.discount > 0) ? a.discount : a.price;
+                    const priceB = (b.discount && b.discount > 0) ? b.discount : b.price;
+                    return priceB - priceA;
+                });
+            } else if (sortVal === 'name') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name, 'uz'));
+            }
+
+            renderProducts(filtered);
+        }
+
+        function setCategoryFilter(catId) {
+            currentCategoryFilter = catId;
+            renderFilterPills();
+            filterProducts();
+        }
+
+        function selectCategoryFromCard(catId) {
+            currentCategoryFilter = catId;
+            renderFilterPills();
+            filterProducts();
+            document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearSearch() {
+            document.getElementById('product-search').value = '';
+            filterProducts();
+        }
+
+        function resetFilters() {
+            currentCategoryFilter = 'all';
+            document.getElementById('product-search').value = '';
+            if (document.getElementById('sort-select')) document.getElementById('sort-select').value = 'default';
+            renderFilterPills();
+            filterProducts();
+        }
+
+        // Product Modal Details
+        function openProductModal(productId) {
+            const prod = window.TILAK_DATA.products.find(p => p.id === productId);
+            if (!prod) return;
+
+            const hasDiscount = prod.discount && prod.discount > 0 && prod.discount < prod.price;
+            const finalPrice = hasDiscount ? prod.discount : prod.price;
+
+            document.getElementById('modal-img').src = prod.image;
+            document.getElementById('modal-img').alt = prod.name;
+            document.getElementById('modal-category').textContent = prod.category;
+            document.getElementById('modal-title').textContent = prod.name;
+            document.getElementById('modal-desc').textContent = prod.desc || "Marg'ilon krugi yonidagi Tilak Supermarketida har doim sarxil va arzon narxlarda.";
+
+            document.getElementById('modal-price').textContent = formatMoney(finalPrice) + " so'm";
+            const badgeWrapper = document.getElementById('modal-badge-wrapper');
+            if (badgeWrapper) {
+                badgeWrapper.innerHTML = hasDiscount ? 
+                    '<span class="bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded">Aksiya</span>' : 
+                    (prod.badge ? `<span class="bg-tilak-light text-tilak-primary text-[10px] font-extrabold px-2 py-0.5 rounded">${prod.badge}</span>` : '');
+            }
+
+            const cartBtn = document.getElementById('modal-cart-btn');
+            cartBtn.onclick = () => {
+                addToCart(prod.id);
+                closeProductModal();
+            };
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Mobile Menu Controls
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('hamburger-icon');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.contains('hidden');
+
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-base';
+                btn.setAttribute('aria-expanded', 'true');
+            } else {
+                closeMobileMenu();
+            }
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('hamburger-icon');
+            const btn = document.getElementById('mobile-menu-btn');
+            menu.classList.add('hidden');
+            icon.className = 'fa-solid fa-bars text-base';
+            btn.setAttribute('aria-expanded', 'false');
+        }
+
+        // Sticky Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const logo = document.getElementById('nav-logo');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md', 'bg-white', 'py-2');
+                navbar.classList.remove('py-2.5', 'sm:py-3.5', 'bg-white/95');
+                logo.classList.add('scale-90');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-white', 'py-2');
+                navbar.classList.add('py-2.5', 'sm:py-3.5', 'bg-white/95');
+                logo.classList.remove('scale-90');
+            }
+        });
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.08 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Background Live Sync from API
+        async function syncLiveProductsFromApi() {
+            try {
+                const resp = await fetch(`${window.TILAK_CONFIG.apiUrl}/products`, {
+                    headers: { 'tenant-id': window.TILAK_CONFIG.tenantId }
+                });
+                if (!resp.ok) return;
+                const liveProducts = await resp.json();
+                if (Array.isArray(liveProducts) && liveProducts.length > 0) {
+                    liveProducts.forEach(lp => {
+                        const existing = window.TILAK_DATA.products.find(p => p.id === lp.id);
+                        if (existing) {
+                            if (lp.price !== undefined) existing.price = lp.price;
+                            if (lp.discount !== undefined) existing.discount = lp.discount;
+                            if (lp.name) existing.name = lp.name;
+                            if (lp.image) existing.image = lp.image;
+                        }
+                    });
+                    filterProducts();
+                }
+            } catch (e) {}
+        }
+
+        // Keyboard & Backdrop Esc Handlers
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProductModal();
+                closeCartDrawer();
+                closeCheckoutModal();
+                closeSuccessModal();
+            }
+        });
+
+        // Initialize Page
+        window.addEventListener('DOMContentLoaded', () => {
+            initCartFromStorage();
+            renderCategories();
+            renderFilterPills();
+            renderProducts(window.TILAK_DATA.products);
+            initScrollReveal();
+            syncLiveProductsFromApi();
+        });
+    </script>
+</body>
+</html>
